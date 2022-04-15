@@ -8,8 +8,21 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-
 NWHL_data <- read.csv("https://raw.githubusercontent.com/bigdatacup/Big-Data-Cup-2021/main/hackathon_nwhl.csv")
 Olympic_data2018 <- read.csv("https://raw.githubusercontent.com/bigdatacup/Big-Data-Cup-2021/main/hackathon_womens.csv")
 Olympic_data2022 <- read.csv("https://raw.githubusercontent.com/bigdatacup/Big-Data-Cup-2021/main/pxp_womens_oly_2022_v2.csv")
 ```
+
+
+```{r}
+library(dplyr)
+```
+
+
+```{r}
+NWHL_data %>% 
+  group_by(game_date) %>% 
+  summarize(n())
+  
+```
+
