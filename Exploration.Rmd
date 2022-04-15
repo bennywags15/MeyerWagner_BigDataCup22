@@ -21,8 +21,23 @@ library(dplyr)
 
 ```{r}
 NWHL_data %>% 
-  group_by(game_date) %>% 
+  group_by(Team) %>%
   summarize(n())
   
 ```
+
+```{r}
+source("C:\\Users\\littl\\OneDrive\\Desktop\\Big Data Cup 2022\\MeyerWagner_BigDataCup22\\plot_rink.R")
+```
+
+```{r}
+NWHL_goals <- NWHL_data %>% 
+  filter(Event=="Goal")
+NWHL_Zone_Entries <- NWHL_data %>% 
+  filter(Event== 'Zone Entry')
+
+plot_rink(ggplot(NWHL_Zone_Entries))+
+  geom_point(aes(x=X.Coordinate, y=Y.Coordinate, color=Detail.1))
+```
+
 
