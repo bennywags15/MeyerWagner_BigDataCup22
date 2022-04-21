@@ -105,7 +105,7 @@ plot_rink(ggplot(goal_data)) +
 ```{r}
 NWHL_data %>% 
   filter((Event == "Goal" & lag(Event) == "Zone Entry") | lead(Event == "Goal" & lag(Event) == "Zone Entry"))
-
+  
 NWHL_data %>% 
   filter((Event == "Goal" & lag(Event, n = 2) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 2) == "Zone Entry"), n = 2))
 
@@ -117,6 +117,25 @@ NWHL_data %>%
 
 NWHL_data %>% 
   filter((Event == "Goal" & lag(Event, n = 5) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 5) == "Zone Entry"), n = 5))
+
+
+
+# Combine all
+zone_entry_plus_goals <- NWHL_data %>% 
+  filter(
+  ((Event == "Goal" & lag(Event) == "Zone Entry") | lead(Event == "Goal" & lag(Event) == "Zone Entry")) |
+  ((Event == "Goal" & lag(Event, n = 2) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 2) == "Zone Entry"), n = 2)) |
+  ((Event == "Goal" & lag(Event, n = 3) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 3) == "Zone Entry"), n = 3)) |
+  ((Event == "Goal" & lag(Event, n = 4) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 4) == "Zone Entry"), n = 4)) |
+  ((Event == "Goal" & lag(Event, n = 5) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 5) == "Zone Entry"), n = 5))
+  )
+
+zone_entry <- 
+  zone_entry_plus_goals %>% 
+  filter(Event == "Zone Entry")
+
+plot_rink(ggplot(zone_entry)) +
+  geom_point(aes(x = X.Coordinate, y = Y.Coordinate, color = Detail.1))
 ```
 
 
