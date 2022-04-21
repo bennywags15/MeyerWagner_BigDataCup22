@@ -103,6 +103,24 @@ plot_rink(ggplot(goal_data)) +
 ```
 
 ```{r}
+NWHL_data %>% 
+  filter((Event == "Goal" & lag(Event) == "Zone Entry") | lead(Event == "Goal" & lag(Event) == "Zone Entry"))
+
+NWHL_data %>% 
+  filter((Event == "Goal" & lag(Event, n = 2) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 2) == "Zone Entry"), n = 2))
+
+NWHL_data %>% 
+  filter((Event == "Goal" & lag(Event, n = 3) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 3) == "Zone Entry"), n = 3))
+
+NWHL_data %>% 
+  filter((Event == "Goal" & lag(Event, n = 4) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 4) == "Zone Entry"), n = 4))
+
+NWHL_data %>% 
+  filter((Event == "Goal" & lag(Event, n = 5) == "Zone Entry") | lead((Event == "Goal" & lag(Event, n = 5) == "Zone Entry"), n = 5))
+```
+
+
+```{r}
 # Power Play / Penalty Kill
 pp_goal_data = NWHL_data %>% 
   filter((Home.Team.Skaters < 5) | (Away.Team.Skaters < 5)) %>% 
